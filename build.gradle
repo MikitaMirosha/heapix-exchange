@@ -1,0 +1,54 @@
+buildscript {
+
+    // kotlin
+    ext.kotlin_version = '1.4.30'
+
+    // joda time
+    ext.joda_version = '2.10.6'
+
+    // glide
+    ext.glide_version = '4.11.0'
+
+    // moxy
+    ext.moxy_version = '1.5.6'
+
+    // rx
+    ext.rx_java2_version = '2.2.20'
+    ext.rx_android_version = '2.1.1'
+    ext.rx_view_binding_version = '3.1.0'
+
+    // kodein
+    ext.kodein_version = '7.0.0'
+    ext.kodein_version_android = '7.0.0'
+
+    // http3
+    ext.http3_version = '4.9.0'
+    ext.http3_logging_interceptor = '4.9.0'
+
+    // retrofit
+    ext.retrofit_version = '2.9.0'
+
+    // prdownloader
+    ext.prdownloader_version = '0.6.0'
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
