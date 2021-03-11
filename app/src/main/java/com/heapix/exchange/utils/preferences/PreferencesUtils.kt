@@ -11,7 +11,7 @@ class PreferencesUtils {
 
         private const val PREFERENCES = "PREFERENCES"
 
-//        const val TIME_LAST_UPDATE_UTC: String = "TIME_LAST_UPDATE_UTC"
+        const val BASE_CODE: String = "BASE_CODE"
     }
 }
 
@@ -21,6 +21,6 @@ inline fun SharedPreferences.editMe(operation: (SharedPreferences.Editor) -> Uni
     editMe.apply()
 }
 
-//var SharedPreferences.timeLastUpdateUtc: String
-//    get() = getString(PreferencesUtils.TIME_LAST_UPDATE_UTC, "") ?: ""
-//    set(value) = editMe { it.putString(PreferencesUtils.TIME_LAST_UPDATE_UTC, value) }
+var SharedPreferences.baseCode: String
+    get() = getString(PreferencesUtils.BASE_CODE, "") ?: ""
+    set(value) = editMe { it.putString(PreferencesUtils.BASE_CODE, value) }

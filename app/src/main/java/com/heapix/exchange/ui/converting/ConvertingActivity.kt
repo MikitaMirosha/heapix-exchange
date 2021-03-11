@@ -20,15 +20,15 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
     override fun onCreateActivity(savedInstanceState: Bundle?) {
         setupKeyboardAdapter()
 
-        convertingPresenter.onCreate(keyboardAdapter.keyboardNumberClickObservable)
+        convertingPresenter.onCreate(keyboardAdapter.keyboardButtonClickObservable)
     }
 
     private fun setupKeyboardAdapter() {
         keyboardAdapter = KeyboardAdapter()
-        vRvKeyboard.adapter = keyboardAdapter
+        vRvKeyboardButtons.adapter = keyboardAdapter
     }
 
-    override fun updateKeyboard(keyNumberList: MutableList<KeyboardModel>) {
-        keyboardAdapter.setItems(keyNumberList)
-    }
+    override fun updateKeyboard(keyboardModelList: MutableList<KeyboardModel>) =
+        keyboardAdapter.setItems(keyboardModelList)
+
 }

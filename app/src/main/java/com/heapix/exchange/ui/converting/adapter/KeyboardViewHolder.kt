@@ -12,12 +12,12 @@ class KeyboardViewHolder(
 ) : BaseViewHolder<KeyboardModel>(itemView) {
 
     override fun bind(model: KeyboardModel) {
-        setupKeyNumber(model)
+        setupKeyboardNumber(model)
         setupClickListener(model)
     }
 
-    private fun setupKeyNumber(keyboardModel: KeyboardModel) {
-        vTvKeyNumber.text = keyboardModel.keyNumber.toString()
+    private fun setupKeyboardNumber(keyboardModel: KeyboardModel) {
+        vTvKeyboardNumber.text = keyboardModel.keyboardNumber.toString()
     }
 
     private fun setupClickListener(keyboardModel: KeyboardModel) {

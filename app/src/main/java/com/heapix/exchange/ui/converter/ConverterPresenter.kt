@@ -13,19 +13,19 @@ class ConverterPresenter : BaseMvpPresenter<ConverterView>() {
     private val standardExchangeRepo: StandardExchangeRepo by MyApp.kodein.instance()
 
     fun onCreate() {
-
         getStandardResponseAndUpdateUi()
-        getConversionRatesAndUpdateUi()
+        getStandardResponseTimeAndUpdateUi()
     }
 
     private fun getStandardResponseAndUpdateUi() {
         addDisposable(
-            standardExchangeRepo.getStandardResponse()
+            standardExchangeRepo.getStandardResponse("USD")
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
                 .subscribe(
                     {
-                        setupTimeUpdate(it.timeLastUpdateUtc, it.timeNextUpdateUtc)
+                        standardExchangeRepo.saveBaseCode("USD")
+                        viewState.updateCurrencyCards(it)
                     }, {
                         Log.e("TAG", it.toString())
                     }
@@ -33,14 +33,14 @@ class ConverterPresenter : BaseMvpPresenter<ConverterView>() {
         )
     }
 
-    private fun getConversionRatesAndUpdateUi() {
+    private fun getStandardResponseTimeAndUpdateUi() {
         addDisposable(
-            standardExchangeRepo.getStandardResponse()
+            standardExchangeRepo.getStandardResponseTime("USD")
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
                 .subscribe(
                     {
-//                        viewState.updateConverter() TODO
+                        setupTimeUpdate(it.timeLastUpdateUtc, it.timeNextUpdateUtc)
                     }, {
                         Log.e("TAG", it.toString())
                     }

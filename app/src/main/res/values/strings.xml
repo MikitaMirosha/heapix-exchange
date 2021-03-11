@@ -7,4 +7,6 @@
 
     <string name="cancel">C</string>
     <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="equal">=</string>
 </resources>

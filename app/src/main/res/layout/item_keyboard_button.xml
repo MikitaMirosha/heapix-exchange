@@ -8,8 +8,8 @@
     android:background="@drawable/ic_keyboard_button">
 
     <TextView
-        android:id="@+id/vTvKeyNumber"
-        style="@style/KeyboardItemText"
+        android:id="@+id/vTvKeyboardNumber"
+        style="@style/KeyboardNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

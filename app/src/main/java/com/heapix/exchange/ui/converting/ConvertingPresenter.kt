@@ -14,31 +14,29 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
 
     private val keyboardRepo: KeyboardRepo by MyApp.kodein.instance()
 
-    fun onCreate(keyboardNumberClickObservable: Observable<KeyboardModel>) {
-
+    fun onCreate(keyboardButtonClickObservable: Observable<KeyboardModel>) {
         getKeyboardAndUpdateUi()
 
-        setupOnKeyboardNumberClickListener(keyboardNumberClickObservable)
+        setupOnKeyboardButtonClickListener(keyboardButtonClickObservable)
     }
 
     private fun getKeyboardAndUpdateUi() {
         viewState.updateKeyboard(keyboardRepo.getAllKeyNumbers())
     }
 
-    private fun setupOnKeyboardNumberClickListener(keyboardNumberClickObservable: Observable<KeyboardModel>) {
+    private fun setupOnKeyboardButtonClickListener(keyboardButtonClickObservable: Observable<KeyboardModel>) {
         addDisposable(
-            keyboardNumberClickObservable
+            keyboardButtonClickObservable
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
                 .subscribe(
                     {
-                        it.keyNumber?.let { keyNumber -> showMessage(keyNumber) }
+                        it.keyboardNumber?.let { keyNumber -> showMessage(keyNumber) }
                     }, {
                         Log.e("TAG", it.toString())
                     }
                 )
         )
     }
-
 
 }

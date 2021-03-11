@@ -12,7 +12,7 @@ import io.reactivex.subjects.PublishSubject
 class KeyboardAdapter : BaseListAdapter<KeyboardModel>() {
 
     private val keyboardPublishSubject: PublishSubject<KeyboardModel> = PublishSubject.create()
-    val keyboardNumberClickObservable: Observable<KeyboardModel> = keyboardPublishSubject
+    val keyboardButtonClickObservable: Observable<KeyboardModel> = keyboardPublishSubject
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

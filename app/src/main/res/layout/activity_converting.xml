@@ -26,8 +26,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/dp_14"
-                    android:layout_marginVertical="@dimen/dp_14"
+                    android:layout_margin="@dimen/dp_14"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -36,7 +35,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/CurrencyItemBoldText"
+                            style="@style/DefaultBoldText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -65,7 +64,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/CurrencyItemBoldText"
+                            style="@style/DefaultBoldText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"

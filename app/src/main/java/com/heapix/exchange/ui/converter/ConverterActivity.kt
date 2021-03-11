@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.heapix.exchange.R
 import com.heapix.exchange.base.BaseMvpActivity
-import com.heapix.exchange.net.responses.StandardExchangeResponse
 import com.heapix.exchange.ui.converter.adapter.ConverterAdapter
 import com.heapix.exchange.ui.converting.ConvertingActivity
 import kotlinx.android.synthetic.main.activity_converter.*
@@ -29,8 +28,8 @@ class ConverterActivity : BaseMvpActivity(), ConverterView {
     }
 
     companion object {
-        private const val INPUT_PATTERN: String = "EEE, d MMM yyyy HH:mm:ss Z"
-        private const val OUTPUT_PATTERN: String = "yyyy-MM-dd HH:mm"
+        private const val INPUT_PATTERN = "EEE, d MMM yyyy HH:mm:ss Z"
+        private const val OUTPUT_PATTERN = "yyyy-MM-dd HH:mm"
     }
 
     private fun initListeners() {
@@ -41,7 +40,7 @@ class ConverterActivity : BaseMvpActivity(), ConverterView {
 
     private fun setupConverterAdapter() {
         converterAdapter = ConverterAdapter()
-        vRvCurrencyCardList.adapter = converterAdapter
+        vRvCurrencyCards.adapter = converterAdapter
     }
 
     override fun setupTimeLastUpdateUtc(timeLastUpdateUtc: String?) {
@@ -64,11 +63,10 @@ class ConverterActivity : BaseMvpActivity(), ConverterView {
             )
     }
 
-    override fun updateConverter(standardExchangeResponseList: MutableList<StandardExchangeResponse>) {
-        converterAdapter.setItems(standardExchangeResponseList)
-    }
+    override fun updateCurrencyCards(standardExchangeList: List<Pair<String, Double>>) =
+        converterAdapter.setItems(standardExchangeList)
 
-    override fun openConvertingActivity() {
+    override fun openConvertingActivity() =
         startActivity(Intent(this, ConvertingActivity::class.java))
-    }
+
 }

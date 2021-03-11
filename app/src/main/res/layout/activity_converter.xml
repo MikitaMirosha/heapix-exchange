@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_blue"
+            android:background="@color/blue"
             android:orientation="vertical">
 
             <TextView
@@ -30,23 +30,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginHorizontal="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_24"
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/UpdateText"
+                    style="@style/DefaultText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_24"
                     android:text="@string/last_updated" />
 
                 <TextView
                     android:id="@+id/vTvTimeLastUpdateUtc"
-                    style="@style/UpdateText"
+                    style="@style/DefaultText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_24"
                     tools:text="2021-01-01 00:00" />
 
             </LinearLayout>
@@ -54,30 +53,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginHorizontal="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginBottom="@dimen/dp_18"
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/UpdateText"
+                    style="@style/DefaultText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_8"
                     android:text="@string/next_update" />
 
                 <TextView
                     android:id="@+id/vTvTimeNextUpdateUtc"
-                    style="@style/UpdateText"
+                    style="@style/DefaultText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_18"
                     tools:text="2021-01-01 00:00" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/vRvCurrencyCardList"
+                android:id="@+id/vRvCurrencyCards"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

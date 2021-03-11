@@ -3,27 +3,27 @@ package com.heapix.exchange.net.repo
 import android.content.SharedPreferences
 import com.heapix.exchange.net.responses.StandardExchangeResponse
 import com.heapix.exchange.net.services.StandardExchangeService
+import com.heapix.exchange.utils.preferences.baseCode
 import io.reactivex.Observable
-import java.math.BigDecimal
 
 class StandardExchangeRepo(
     private val api: StandardExchangeService,
     private val sharedPreferences: SharedPreferences
 ) {
 
-    fun getStandardResponse(): Observable<StandardExchangeResponse> {
-        return api.getStandardResponse()
-    }
-
-    fun getConversionRates(): Observable<MutableList<Map<String, BigDecimal>?>> {
-        return api.getStandardResponse().map {
-            mutableListOf(it.conversionRates)
+    fun getStandardResponse(baseCode: String?): Observable<List<Pair<String, Double>>> {
+        return api.getStandardResponse(baseCode).map {
+            it.conversionRates?.toList()
         }
     }
 
-//    fun getConversionRates(): Observable<MutableList<StandardExchangeResponse>> {
-//        return api.getStandardResponse().map {
-//            it.
-//        }
-//    }
+    fun getStandardResponseTime(baseCode: String?): Observable<StandardExchangeResponse> {
+        return api.getStandardResponseTime(baseCode)
+    }
+
+    fun getBaseCode(): String = sharedPreferences.baseCode
+
+    fun saveBaseCode(baseCode: String?) {
+        sharedPreferences.baseCode = baseCode ?: ""
+    }
 }
