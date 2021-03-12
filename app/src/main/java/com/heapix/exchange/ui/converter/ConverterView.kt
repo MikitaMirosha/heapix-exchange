@@ -6,7 +6,7 @@ interface ConverterView : BaseMvpView {
     fun setupTimeLastUpdateUtc(timeLastUpdateUtc: String?)
     fun setupTimeNextUpdateUtc(timeNextUpdateUtc: String?)
 
-    fun updateCurrencyCards(standardExchangeList: List<Pair<String, Double>>)
+    fun updateCurrencyCards(currencyCardList: List<Pair<String, Double>>)
 
     fun openConvertingActivity()
 }

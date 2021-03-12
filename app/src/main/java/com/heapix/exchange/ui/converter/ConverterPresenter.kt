@@ -35,7 +35,7 @@ class ConverterPresenter : BaseMvpPresenter<ConverterView>() {
 
     private fun getStandardResponseTimeAndUpdateUi() {
         addDisposable(
-            standardExchangeRepo.getStandardResponseTime("USD")
+            standardExchangeRepo.getStandardResponseTime(standardExchangeRepo.getBaseCode())
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
                 .subscribe(

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_46"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
@@ -29,25 +29,28 @@
         android:orientation="horizontal">
 
         <FrameLayout
+            android:id="@+id/vFlCommaButton"
+            style="@style/KeyboardButtonBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp_14"
-            android:background="@drawable/ic_keyboard_button">
+            android:layout_marginBottom="@dimen/dp_6">
 
             <TextView
                 style="@style/KeyboardNumberText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/cancel" />
+                android:text="@string/comma" />
 
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/vFlZeroButton"
+            style="@style/KeyboardButtonBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_14"
-            android:background="@drawable/ic_keyboard_button">
+            android:layout_marginHorizontal="@dimen/dp_14">
 
             <TextView
                 style="@style/KeyboardNumberText"
@@ -59,10 +62,11 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/vFlBackspaceButton"
+            style="@style/KeyboardButtonBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_14"
-            android:background="@drawable/ic_keyboard_button">
+            android:layout_marginHorizontal="@dimen/dp_14">
 
             <ImageView
                 android:layout_width="wrap_content"

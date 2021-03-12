@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/KeyboardButtonBackground"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/dp_14"
-    android:layout_marginBottom="@dimen/dp_28"
-    android:background="@drawable/ic_keyboard_button">
+    android:layout_marginBottom="@dimen/dp_28">
 
     <TextView
         android:id="@+id/vTvKeyboardNumber"

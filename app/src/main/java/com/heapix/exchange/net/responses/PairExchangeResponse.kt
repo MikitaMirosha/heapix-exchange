@@ -2,7 +2,7 @@ package com.heapix.exchange.net.responses
 
 import com.google.gson.annotations.SerializedName
 
-data class StandardExchangeResponse(
+data class PairExchangeResponse(
     val result: String? = null,
     val documentation: String? = null,
 
@@ -14,6 +14,8 @@ data class StandardExchangeResponse(
     @SerializedName("time_next_update_utc")     val timeNextUpdateUtc:      String? = null,
 
     @SerializedName("base_code")                val baseCode:               String? = null,
+    @SerializedName("target_code")              val targetCode:             String? = null,
 
-    @SerializedName("conversion_rates")         val conversionRates:        Map<String, Double>? = mutableMapOf()
+    @SerializedName("conversion_rate")          val conversionRate:         Double? = null,
+    @SerializedName("conversion_result")        val conversionResult:       Double? = null
 )

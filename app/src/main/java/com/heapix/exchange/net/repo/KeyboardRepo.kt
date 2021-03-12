@@ -8,7 +8,7 @@ class KeyboardRepo {
         val keyboardModelList = mutableListOf<KeyboardModel>()
 
         (1..9).forEach { keyNumber ->
-            mutableListOf<KeyboardModel>().add((KeyboardModel(keyNumber)))
+            keyboardModelList.add((KeyboardModel(keyNumber)))
         }
         return keyboardModelList
     }

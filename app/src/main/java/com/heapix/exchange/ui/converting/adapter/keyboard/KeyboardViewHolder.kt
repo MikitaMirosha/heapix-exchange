@@ -1,4 +1,4 @@
-package com.heapix.exchange.ui.converting.adapter
+package com.heapix.exchange.ui.converting.adapter.keyboard
 
 import android.view.View
 import com.heapix.exchange.base.adapters.BaseViewHolder

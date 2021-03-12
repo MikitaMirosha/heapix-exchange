@@ -5,8 +5,10 @@
     <string name="last_updated">Last updated:</string>
     <string name="next_update">Next update:</string>
 
-    <string name="cancel">C</string>
+    <string name="comma">,</string>
     <string name="zero">0</string>
     <string name="one">1</string>
     <string name="equal">=</string>
+
+    <string name="currency_code">Currency code</string>
 </resources>

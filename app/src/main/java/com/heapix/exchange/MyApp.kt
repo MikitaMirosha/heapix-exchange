@@ -3,8 +3,10 @@ package com.heapix.exchange
 import android.app.Application
 import android.content.SharedPreferences
 import com.heapix.exchange.net.repo.KeyboardRepo
+import com.heapix.exchange.net.repo.PairExchangeRepo
 import com.heapix.exchange.net.repo.StandardExchangeRepo
 import com.heapix.exchange.net.services.ApiRest
+import com.heapix.exchange.net.services.PairExchangeService
 import com.heapix.exchange.net.services.StandardExchangeService
 import com.heapix.exchange.utils.preferences.PreferencesUtils
 import com.heapix.exchange.utils.rx.AppSchedulerProvider
@@ -29,6 +31,13 @@ class MyApp : Application() {
 
         bind<SharedPreferences>() with singleton {
             PreferencesUtils.getSharedPreferences(applicationContext)
+        }
+
+        bind<PairExchangeRepo>() with singleton {
+            PairExchangeRepo(
+                instance<Retrofit>().create(PairExchangeService::class.java),
+                instance()
+            )
         }
 
         bind<StandardExchangeRepo>() with singleton {

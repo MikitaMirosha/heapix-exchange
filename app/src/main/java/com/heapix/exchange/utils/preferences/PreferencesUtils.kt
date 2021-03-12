@@ -11,7 +11,8 @@ class PreferencesUtils {
 
         private const val PREFERENCES = "PREFERENCES"
 
-        const val BASE_CODE: String = "BASE_CODE"
+        const val BASE_CODE = "BASE_CODE"
+        const val TARGET_CODE = "TARGET_CODE"
     }
 }
 
@@ -24,3 +25,7 @@ inline fun SharedPreferences.editMe(operation: (SharedPreferences.Editor) -> Uni
 var SharedPreferences.baseCode: String
     get() = getString(PreferencesUtils.BASE_CODE, "") ?: ""
     set(value) = editMe { it.putString(PreferencesUtils.BASE_CODE, value) }
+
+var SharedPreferences.targetCode: String
+    get() = getString(PreferencesUtils.TARGET_CODE, "") ?: ""
+    set(value) = editMe { it.putString(PreferencesUtils.TARGET_CODE, value) }

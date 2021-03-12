@@ -23,9 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.converting.ConvertingActivity">
-
-        </activity>
+        <activity android:name=".ui.converting.ConvertingActivity" />
 
     </application>
 

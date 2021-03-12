@@ -63,8 +63,8 @@ class ConverterActivity : BaseMvpActivity(), ConverterView {
             )
     }
 
-    override fun updateCurrencyCards(standardExchangeList: List<Pair<String, Double>>) =
-        converterAdapter.setItems(standardExchangeList)
+    override fun updateCurrencyCards(currencyCardList: List<Pair<String, Double>>) =
+        converterAdapter.setItems(currencyCardList)
 
     override fun openConvertingActivity() =
         startActivity(Intent(this, ConvertingActivity::class.java))
