@@ -1,12 +1,14 @@
 package com.heapix.exchange.ui.converting
 
 import android.os.Bundle
+import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.heapix.exchange.R
 import com.heapix.exchange.base.BaseMvpActivity
 import com.heapix.exchange.model.KeyboardModel
 import com.heapix.exchange.ui.converting.adapter.currencycode.CurrencyCodeAdapter
 import com.heapix.exchange.ui.converting.adapter.keyboard.KeyboardAdapter
+import com.heapix.exchange.utils.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_converting.*
 import kotlinx.android.synthetic.main.view_currency_code_list.*
 import kotlinx.android.synthetic.main.view_keyboard.*
@@ -23,6 +25,7 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
 
     override fun onCreateActivity(savedInstanceState: Bundle?) {
         initListeners()
+        setupOnTextChangedListener()
 
         setupKeyboardAdapter()
         setupCurrencyCodeAdapter()
@@ -34,12 +37,16 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
     }
 
     companion object {
-        private const val COMMA = ","
-        private const val ZERO_NUMBER = "0"
+        private const val DOT = "."
         private const val LAST_NUMBER = 1
+        private const val ZERO_NUMBER = "0"
     }
 
     private fun initListeners() {
+        vIvSwitchCurrency.setOnClickListener {
+            convertingPresenter.onSwitchCurrencyClicked()
+        }
+
         vTvBaseCodeConversion.setOnClickListener {
             convertingPresenter.onBaseCodeClicked()
         }
@@ -48,8 +55,8 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
             convertingPresenter.onTargetCodeClicked()
         }
 
-        vFlCommaButton.setOnClickListener {
-            convertingPresenter.onCommaButtonClicked()
+        vFlDotButton.setOnClickListener {
+            convertingPresenter.onDotButtonClicked()
         }
 
         vFlZeroButton.setOnClickListener {
@@ -59,6 +66,20 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
         vFlBackspaceButton.setOnClickListener {
             convertingPresenter.onBackspaceButtonClicked()
         }
+
+        vFlBackspaceButton.setOnLongClickListener {
+            convertingPresenter.onBackspaceButtonLongClicked()
+        }
+    }
+
+    private fun setupOnTextChangedListener() {
+        vEtPrimaryValue.addTextChangedListener(
+            object : SimpleTextWatcher() {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    convertingPresenter.onTextChanged(s.toString())
+                }
+            }
+        )
     }
 
     private fun setupKeyboardAdapter() {
@@ -71,16 +92,10 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
         vRvCurrencyCodeList.adapter = currencyCodeAdapter
     }
 
-    private fun isCommaInputValid(value: String?): Boolean {
+    private fun isDotInputValid(value: String?): Boolean {
         return value?.trim { it <= ' ' }?.isNotEmpty() == true
-                && value.contains(COMMA).not()
+                && value.contains(DOT).not()
     }
-
-    override fun updateKeyboard(keyboardModelList: MutableList<KeyboardModel>) =
-        keyboardAdapter.setItems(keyboardModelList)
-
-    override fun updateCurrencyCodes(currencyCodeList: List<Pair<String, Double>>) =
-        currencyCodeAdapter.setItems(currencyCodeList)
 
     override fun updateBaseCode(baseCode: String?) {
         vTvBaseCodeConversion.text = baseCode
@@ -91,22 +106,26 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
     }
 
     override fun updateConversionResult(conversionResult: Double?) {
-        // TODO
+        vEtSecondaryValue.setText(conversionResult.toString(), TextView.BufferType.EDITABLE)
     }
 
-    override fun toggleCurrencyCodeList() = vCurrencyCodeListBottomSheet.toggle()
+    override fun updateKeyboard(keyboardModelList: MutableList<KeyboardModel>) =
+        keyboardAdapter.setItems(keyboardModelList)
 
-    override fun setupComma() {
+    override fun updateCurrencyCodeList(currencyCodeList: List<Pair<String, Double>>) =
+        currencyCodeAdapter.setItems(currencyCodeList)
+
+    override fun setupDot() {
         when {
             vEtPrimaryValue.isFocused -> {
-                if (isCommaInputValid(vEtPrimaryValue.text.toString())) {
-                    vEtPrimaryValue.append(COMMA)
+                if (isDotInputValid(vEtPrimaryValue.text.toString())) {
+                    vEtPrimaryValue.append(DOT)
                 }
             }
 
             vEtSecondaryValue.isFocused -> {
-                if (isCommaInputValid(vEtSecondaryValue.text.toString())) {
-                    vEtSecondaryValue.append(COMMA)
+                if (isDotInputValid(vEtSecondaryValue.text.toString())) {
+                    vEtSecondaryValue.append(DOT)
                 }
             }
         }
@@ -126,6 +145,11 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
         }
     }
 
+    override fun clearValues() {
+        vEtPrimaryValue.text.clear()
+        vEtSecondaryValue.text.clear()
+    }
+
     override fun clearSingleNumber() {
         when {
             vEtPrimaryValue.isFocused -> {
@@ -137,5 +161,15 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
             }
         }
     }
+
+    override fun switchRateValues() {
+        val primaryValue = vEtPrimaryValue.text.toString()
+        val secondaryValue = vEtSecondaryValue.text.toString()
+
+        vEtPrimaryValue.setText(secondaryValue, TextView.BufferType.EDITABLE)
+        vEtSecondaryValue.setText(primaryValue, TextView.BufferType.EDITABLE)
+    }
+
+    override fun toggleCurrencyCodeList() = vCurrencyCodeListBottomSheet.toggle()
 
 }

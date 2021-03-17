@@ -10,10 +10,10 @@ import io.reactivex.subjects.PublishSubject
 
 class CurrencyCodeAdapter : BaseListAdapter<Pair<String, Double>>() {
 
-    private val standardExchangePublishSubject: PublishSubject<Pair<String, Double>> =
+    private val currencyCodePublishSubject: PublishSubject<Pair<String, Double>> =
         PublishSubject.create()
     val currencyCodeClickObservable: Observable<Pair<String, Double>> =
-        standardExchangePublishSubject
+        currencyCodePublishSubject
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -22,7 +22,7 @@ class CurrencyCodeAdapter : BaseListAdapter<Pair<String, Double>>() {
         return CurrencyCodeViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_currency_code, parent, false),
-            standardExchangePublishSubject
+            currencyCodePublishSubject
         )
     }
 

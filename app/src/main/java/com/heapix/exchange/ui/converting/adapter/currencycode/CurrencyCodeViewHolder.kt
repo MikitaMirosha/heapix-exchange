@@ -7,22 +7,22 @@ import kotlinx.android.synthetic.main.item_currency_code.*
 
 class CurrencyCodeViewHolder(
     itemView: View,
-    private val standardExchangePublishSubject: PublishSubject<Pair<String, Double>>
+    private val currencyCodePublishSubject: PublishSubject<Pair<String, Double>>
 ) : BaseViewHolder<Pair<String, Double>>(itemView) {
 
     override fun bind(model: Pair<String, Double>) {
-        setupCurrencyCodeConversion(model)
+        setupCurrencyCodeItem(model)
 
         setupClickListener(model)
     }
 
-    private fun setupCurrencyCodeConversion(currencyCode: Pair<String, Double>) {
-        vTvCurrencyCodeItem.text = currencyCode.first
+    private fun setupCurrencyCodeItem(currencyCodeItem: Pair<String, Double>) {
+        vTvCurrencyCodeItem.text = currencyCodeItem.first
     }
 
-    private fun setupClickListener(currencyCode: Pair<String, Double>) {
+    private fun setupClickListener(currencyCodeItem: Pair<String, Double>) {
         setOnClickListener {
-            standardExchangePublishSubject.onNext(currencyCode) // FIX!
+            currencyCodePublishSubject.onNext(currencyCodeItem)
         }
     }
 

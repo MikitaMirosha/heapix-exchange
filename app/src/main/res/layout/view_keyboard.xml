@@ -4,77 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dirty_white"
+    android:background="@color/sky_blue"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vRvKeyboardButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_46"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
-        tools:itemCount="9"
-        tools:listitem="@layout/item_keyboard_button" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/dp_46"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/vFlCommaButton"
-            style="@style/KeyboardButtonBackground"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vRvKeyboardButtons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_14"
-            android:layout_marginBottom="@dimen/dp_6">
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_46"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            tools:itemCount="9"
+            tools:listitem="@layout/item_keyboard_button" />
 
-            <TextView
-                style="@style/KeyboardNumberText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/comma" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/vFlZeroButton"
-            style="@style/KeyboardButtonBackground"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_14">
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp_46"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-            <TextView
-                style="@style/KeyboardNumberText"
+            <FrameLayout
+                android:id="@+id/vFlDotButton"
+                style="@style/KeyboardButtonBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/zero" />
+                android:layout_marginHorizontal="@dimen/dp_14"
+                android:layout_marginBottom="@dimen/dp_6">
 
-        </FrameLayout>
+                <TextView
+                    style="@style/KeyboardNumberText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/dot" />
 
-        <FrameLayout
-            android:id="@+id/vFlBackspaceButton"
-            style="@style/KeyboardButtonBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dp_14">
+            </FrameLayout>
 
-            <ImageView
+            <FrameLayout
+                android:id="@+id/vFlZeroButton"
+                style="@style/KeyboardButtonBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_backspace" />
+                android:layout_marginHorizontal="@dimen/dp_14">
 
-        </FrameLayout>
+                <TextView
+                    style="@style/KeyboardNumberText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/zero" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/vFlBackspaceButton"
+                style="@style/KeyboardButtonBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp_14">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_backspace" />
+
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -8,7 +8,7 @@ import retrofit2.http.Path
 interface PairExchangeService {
 
     @GET("pair/{base_code}/{target_code}/{conversion_result}")
-    fun getPairResponse(
+    fun getPairExchange(
         @Path("base_code") baseCode: String?,
         @Path("target_code") targetCode: String?,
         @Path("conversion_result") conversionResult: Double?

@@ -4,7 +4,7 @@ import com.heapix.exchange.model.KeyboardModel
 
 class KeyboardRepo {
 
-    fun getAllKeyNumbers(): MutableList<KeyboardModel> {
+    fun getKeyNumbers(): MutableList<KeyboardModel> {
         val keyboardModelList = mutableListOf<KeyboardModel>()
 
         (1..9).forEach { keyNumber ->

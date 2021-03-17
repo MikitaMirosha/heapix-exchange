@@ -1,19 +1,19 @@
 package com.heapix.exchange.net.services
 
-import com.heapix.exchange.net.responses.StandardExchangeResponse
+import com.heapix.exchange.net.responses.ExchangeRatesResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface StandardExchangeService {
+interface ExchangeRatesService {
 
     @GET("latest/{base_code}")
-    fun getStandardResponse(
+    fun getExchangeRates(
         @Path("base_code") baseCode: String?
-    ): Observable<StandardExchangeResponse>
+    ): Observable<ExchangeRatesResponse>
 
     @GET("latest/{base_code}")
-    fun getStandardResponseTime(
+    fun getTime(
         @Path("base_code") baseCode: String?
-    ): Observable<StandardExchangeResponse>
+    ): Observable<ExchangeRatesResponse>
 }

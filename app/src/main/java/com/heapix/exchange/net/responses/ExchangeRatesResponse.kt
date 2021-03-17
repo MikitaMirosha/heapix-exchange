@@ -2,7 +2,7 @@ package com.heapix.exchange.net.responses
 
 import com.google.gson.annotations.SerializedName
 
-data class StandardExchangeResponse(
+data class ExchangeRatesResponse(
     val result: String? = null,
     val documentation: String? = null,
 

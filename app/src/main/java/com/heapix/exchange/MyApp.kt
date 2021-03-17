@@ -2,12 +2,12 @@ package com.heapix.exchange
 
 import android.app.Application
 import android.content.SharedPreferences
+import com.heapix.exchange.net.repo.ExchangeRatesRepo
 import com.heapix.exchange.net.repo.KeyboardRepo
 import com.heapix.exchange.net.repo.PairExchangeRepo
-import com.heapix.exchange.net.repo.StandardExchangeRepo
 import com.heapix.exchange.net.services.ApiRest
+import com.heapix.exchange.net.services.ExchangeRatesService
 import com.heapix.exchange.net.services.PairExchangeService
-import com.heapix.exchange.net.services.StandardExchangeService
 import com.heapix.exchange.utils.preferences.PreferencesUtils
 import com.heapix.exchange.utils.rx.AppSchedulerProvider
 import com.heapix.exchange.utils.rx.SchedulerProvider
@@ -40,9 +40,9 @@ class MyApp : Application() {
             )
         }
 
-        bind<StandardExchangeRepo>() with singleton {
-            StandardExchangeRepo(
-                instance<Retrofit>().create(StandardExchangeService::class.java),
+        bind<ExchangeRatesRepo>() with singleton {
+            ExchangeRatesRepo(
+                instance<Retrofit>().create(ExchangeRatesService::class.java),
                 instance()
             )
         }

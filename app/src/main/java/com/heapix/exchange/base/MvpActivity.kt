@@ -5,12 +5,10 @@ import androidx.fragment.app.FragmentActivity
 import com.arellomobile.mvp.MvpDelegate
 
 abstract class MvpActivity : FragmentActivity() {
+
     private var mMvpDelegate: MvpDelegate<out MvpActivity>? = null
 
-    /**
-     * @return The [MvpDelegate] being used by this Activity.
-     */
-    val mvpDelegate: MvpDelegate<out MvpActivity>
+    private val mvpDelegate: MvpDelegate<out MvpActivity>
         get() {
             if (mMvpDelegate == null) {
                 mMvpDelegate = MvpDelegate(this)
@@ -58,4 +56,5 @@ abstract class MvpActivity : FragmentActivity() {
             mvpDelegate.onDestroy()
         }
     }
+
 }

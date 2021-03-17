@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="top|center"
+        android:layout_marginVertical="@dimen/dp_32"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/DefaultBoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/hello" />
+
+        <TextView
+            style="@style/DefaultBoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_46"
+            android:text="@string/please_select_base_code" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/vTvSelectButton"
+            style="@style/DefaultBoldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_rec_rounded_16"
+            android:elevation="@dimen/dp_2"
+            android:padding="@dimen/dp_12"
+            android:text="@string/select"
+            android:textSize="@dimen/sp_16" />
+
+    </LinearLayout>
+
+    <com.heapix.exchange.utils.view.BottomSheetLayoutWithBackground
+        android:id="@+id/vCodeListBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dp_46"
+        app:collapsedHeight="0dp">
+
+        <include
+            layout="@layout/view_currency_code_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom" />
+
+    </com.heapix.exchange.utils.view.BottomSheetLayoutWithBackground>
+
+</FrameLayout>
