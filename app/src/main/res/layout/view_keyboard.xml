@@ -39,7 +39,7 @@
                 style="@style/KeyboardButtonBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_14"
+                android:layout_marginHorizontal="@dimen/dp_18"
                 android:layout_marginBottom="@dimen/dp_6">
 
                 <TextView
@@ -56,7 +56,7 @@
                 style="@style/KeyboardButtonBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_14">
+                android:layout_marginHorizontal="@dimen/dp_18">
 
                 <TextView
                     style="@style/KeyboardNumberText"
@@ -72,7 +72,7 @@
                 style="@style/KeyboardButtonBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/dp_14">
+                android:layout_marginHorizontal="@dimen/dp_18">
 
                 <ImageView
                     android:layout_width="wrap_content"

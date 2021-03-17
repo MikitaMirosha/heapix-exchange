@@ -43,7 +43,7 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
     }
 
     private fun initListeners() {
-        vIvSwitchCurrency.setOnClickListener {
+        vFlSwitchCurrency.setOnClickListener {
             convertingPresenter.onSwitchCurrencyClicked()
         }
 

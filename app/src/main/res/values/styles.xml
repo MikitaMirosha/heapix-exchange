@@ -41,8 +41,9 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="ConvertingText">
+    <style name="ConvertingText">"
         <item name="android:maxLines">1</item>
+        <item name="android:maxLength">3</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>

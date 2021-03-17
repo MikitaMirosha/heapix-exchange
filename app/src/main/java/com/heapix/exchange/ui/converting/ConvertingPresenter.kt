@@ -11,6 +11,7 @@ import com.heapix.exchange.net.repo.PairExchangeRepo
 import com.heapix.exchange.net.responses.PairExchangeResponse
 import io.reactivex.Observable
 import org.kodein.di.instance
+import java.math.MathContext
 import java.math.RoundingMode
 
 @InjectViewState
@@ -41,7 +42,7 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
     }
 
     companion object {
-        private const val SCALE_TWO = 2
+        private const val PRECISION = 6
         private const val DEFAULT_RATE = 0.0
     }
 
@@ -207,11 +208,12 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
     }
 
     private fun countChangedText(text: String?): Double? {
+
         return text?.toDouble()?.let {
             pairExchangeList.conversionRate
                 ?.times(it)
                 ?.toBigDecimal()
-                ?.setScale(SCALE_TWO, RoundingMode.UP)
+                ?.round(MathContext(PRECISION, RoundingMode.UP))
                 ?.toDouble()
         }
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/sky_blue"
     android:overScrollMode="never">
 
     <androidx.core.widget.NestedScrollView
@@ -18,92 +18,128 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_14"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:paddingHorizontal="@dimen/dp_18"
+                android:paddingTop="@dimen/dp_18"
+                android:paddingBottom="@dimen/dp_28">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/vTvBaseCodeConversion"
-                        style="@style/ConvertingText"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="USD" />
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/dp_28">
+
+                        <TextView
+                            android:id="@+id/vTvBaseCodeConversion"
+                            style="@style/ConvertingText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            tools:text="USD" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.1" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/vEtPrimaryValue"
+                                style="@style/ConvertingEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="1111,999" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/gray" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dp_28">
+
+                        <TextView
+                            android:id="@+id/vTvTargetCodeConversion"
+                            style="@style/ConvertingText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            tools:text="EUR" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.1" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/vEtSecondaryValue"
+                                style="@style/ConvertingEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:focusable="false"
+                                tools:text="1111111,999999" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/gray" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/vFlSwitchCurrency"
+                    android:layout_width="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="@dimen/dp_2"
+                    android:background="@drawable/ic_keyboard_button"
+                    android:elevation="@dimen/dp_2">
 
                     <ImageView
-                        android:id="@+id/vIvSwitchCurrency"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginVertical="@dimen/dp_14"
                         android:src="@drawable/ic_switch" />
 
-                    <TextView
-                        android:id="@+id/vTvTargetCodeConversion"
-                        style="@style/ConvertingText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="EUR" />
+                </FrameLayout>
 
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.9"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/vEtPrimaryValue"
-                        style="@style/ConvertingEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="10"
-                        android:paddingVertical="@dimen/dp_8"
-                        tools:text="1111,999" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray" />
-
-                    <EditText
-                        android:id="@+id/vEtSecondaryValue"
-                        style="@style/ConvertingEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="false"
-                        android:maxLength="18"
-                        android:paddingVertical="@dimen/dp_8"
-                        tools:text="1111111,999999" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </FrameLayout>
 
             <include
                 android:id="@+id/include"
                 layout="@layout/view_keyboard"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
