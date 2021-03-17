@@ -11,14 +11,8 @@ class ExchangeRatesRepo(
     private val sharedPreferences: SharedPreferences
 ) {
 
-    fun getExchangeRates(baseCode: String?): Observable<List<Pair<String, Double>>> {
-        return api.getExchangeRates(baseCode).map {
-            it.conversionRates?.toList()
-        }
-    }
-
-    fun getTime(baseCode: String?): Observable<ExchangeRatesResponse> {
-        return api.getTime(baseCode)
+    fun getExchangeRates(baseCode: String?): Observable<ExchangeRatesResponse> {
+        return api.getExchangeRates(baseCode)
     }
 
     fun getBaseCode(): String = sharedPreferences.baseCode

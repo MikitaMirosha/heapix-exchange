@@ -8,6 +8,7 @@ import com.heapix.exchange.model.KeyboardModel
 import com.heapix.exchange.net.repo.ExchangeRatesRepo
 import com.heapix.exchange.net.repo.KeyboardRepo
 import com.heapix.exchange.net.repo.PairExchangeRepo
+import com.heapix.exchange.net.responses.ExchangeRatesResponse
 import com.heapix.exchange.net.responses.PairExchangeResponse
 import io.reactivex.Observable
 import org.kodein.di.instance
@@ -64,6 +65,21 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
         viewState.updateKeyboard(keyboardRepo.getKeyNumbers())
     }
 
+    private fun getExchangeRatesAndUpdateUi() {
+        addDisposable(
+            exchangeRatesRepo.getExchangeRates(exchangeRatesRepo.getBaseCode())
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
+                .subscribe(
+                    {
+                        updateCurrencyCodeList(it)
+                    }, {
+                        Log.e("TAG", it.toString())
+                    }
+                )
+        )
+    }
+
     private fun getPairExchangeAndUpdateUi(baseCode: String?, targetCode: String?) {
         addDisposable(
             pairExchangeRepo.getPairExchange(baseCode, targetCode, DEFAULT_RATE)
@@ -74,21 +90,6 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
                         pairExchangeList = it
 
                         updateCodes(it.baseCode, it.targetCode)
-                    }, {
-                        Log.e("TAG", it.toString())
-                    }
-                )
-        )
-    }
-
-    private fun getExchangeRatesAndUpdateUi() {
-        addDisposable(
-            exchangeRatesRepo.getExchangeRates(exchangeRatesRepo.getBaseCode())
-                .subscribeOn(schedulers.io())
-                .observeOn(schedulers.ui())
-                .subscribe(
-                    {
-                        viewState.updateCurrencyCodeList(it)
                     }, {
                         Log.e("TAG", it.toString())
                     }
@@ -147,6 +148,12 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
     }
 
     private fun isTargetCodeInStorage(): Boolean = pairExchangeRepo.isTargetCodeInStorage()
+
+    private fun updateCurrencyCodeList(conversionRates: ExchangeRatesResponse) {
+        conversionRates.conversionRates?.toList()?.let {
+            viewState.updateCurrencyCodeList(it)
+        }
+    }
 
     private fun updateCodes(baseCode: String?, targetCode: String?) {
         viewState.updateBaseCode(baseCode)

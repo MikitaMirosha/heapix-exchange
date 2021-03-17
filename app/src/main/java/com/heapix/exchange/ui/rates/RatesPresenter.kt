@@ -5,6 +5,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.heapix.exchange.MyApp
 import com.heapix.exchange.base.BaseMvpPresenter
 import com.heapix.exchange.net.repo.ExchangeRatesRepo
+import com.heapix.exchange.net.responses.ExchangeRatesResponse
 import io.reactivex.Observable
 import org.joda.time.format.DateTimeFormat
 import org.kodein.di.instance
@@ -18,7 +19,6 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
         checkBaseCodeInStorage()
 
         getExchangeRatesAndUpdateUi(getBaseCode())
-        getTimeAndUpdateUi()
 
         setupOnCurrencyCodeClickListener(currencyCodeClickObservable)
     }
@@ -45,26 +45,13 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
                 .observeOn(schedulers.ui())
                 .subscribe(
                     {
-                        saveBaseCode(baseCode)
-
-                        viewState.updateCurrencyCardList(it)
-                        viewState.updateCurrencyCodeList(it)
-                    }, {
-                        Log.e("TAG", it.toString())
-                    }
-                )
-        )
-    }
-
-    private fun getTimeAndUpdateUi() {
-        addDisposable(
-            exchangeRatesRepo.getTime(getBaseCode())
-                .subscribeOn(schedulers.io())
-                .observeOn(schedulers.ui())
-                .subscribe(
-                    {
                         setupTimeLastUpdateUtc(it.timeLastUpdateUtc)
                         setupTimeNextUpdateUtc(it.timeNextUpdateUtc)
+
+                        saveBaseCode(baseCode)
+
+                        updateCurrencyCardList(it)
+                        updateCurrencyCodeList(it)
                     }, {
                         Log.e("TAG", it.toString())
                     }
@@ -117,11 +104,22 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
         )
     }
 
+    private fun updateCurrencyCardList(conversionRates: ExchangeRatesResponse) {
+        conversionRates.conversionRates?.toList()?.let {
+            viewState.updateCurrencyCardList(it)
+        }
+    }
+
+    private fun updateCurrencyCodeList(conversionRates: ExchangeRatesResponse) {
+        conversionRates.conversionRates?.toList()?.let {
+            viewState.updateCurrencyCodeList(it)
+        }
+    }
+
     private fun setupBaseCodeAndUpdateUi(baseCode: String?) {
         saveBaseCode(baseCode)
 
         getExchangeRatesAndUpdateUi(baseCode)
-        getTimeAndUpdateUi()
 
         viewState.hideBaseCodeSelectingView()
         viewState.updateBaseCode(baseCode)

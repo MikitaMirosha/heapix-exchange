@@ -10,6 +10,7 @@ class RatesViewHolder(
 ) : BaseViewHolder<Pair<String, Double>>(itemView) {
 
     override fun bind(model: Pair<String, Double>) {
+        setupBaseCode(model)
         setupBaseRate(model)
         setupCurrencyCode(model)
         setupCurrencyRate(model)
@@ -19,6 +20,10 @@ class RatesViewHolder(
     companion object {
         private const val ONE_CONVENTIONAL_UNIT = 1.0
         private const val SCALE_FOUR = 4
+    }
+
+    private fun setupBaseCode(conversionRate: Pair<String, Double>) {
+//        vTvBaseCode.text = conversionRate.
     }
 
     private fun setupBaseRate(conversionRate: Pair<String, Double>) {

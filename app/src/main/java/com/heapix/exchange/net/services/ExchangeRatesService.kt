@@ -11,9 +11,4 @@ interface ExchangeRatesService {
     fun getExchangeRates(
         @Path("base_code") baseCode: String?
     ): Observable<ExchangeRatesResponse>
-
-    @GET("latest/{base_code}")
-    fun getTime(
-        @Path("base_code") baseCode: String?
-    ): Observable<ExchangeRatesResponse>
 }
