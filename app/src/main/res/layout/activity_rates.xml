@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
-    android:orientation="vertical">
+    android:background="@color/dark_blue">
 
     <include
         android:id="@+id/vLtBaseCodeSelecting"
         layout="@layout/view_base_code_selecting"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/vClRatesScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,18 +22,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blue"
-            android:elevation="@dimen/dp_2"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginHorizontal="@dimen/dp_14"
                 android:layout_marginTop="@dimen/dp_24"
-                android:text="@string/converter"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_32"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/converter"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_32"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:id="@+id/vLlSelectBaseCodeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_4">
+
+                    <TextView
+                        android:id="@+id/vTvSelectedBaseCode"
+                        style="@style/DefaultBoldText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="USD" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_4"
+                        android:src="@drawable/ic_down_arrow" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,4 +142,19 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</LinearLayout>
+    <com.heapix.exchange.utils.view.BottomSheetLayoutWithBackground
+        android:id="@+id/vCodeListBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/dp_48"
+        app:collapsedHeight="0dp">
+
+        <include
+            layout="@layout/view_currency_code_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom" />
+
+    </com.heapix.exchange.utils.view.BottomSheetLayoutWithBackground>
+
+</FrameLayout>

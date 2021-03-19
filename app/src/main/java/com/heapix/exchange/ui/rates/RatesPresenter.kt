@@ -18,8 +18,6 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
     fun onCreate(currencyCodeClickObservable: Observable<Pair<String, Double>>) {
         checkBaseCodeInStorage()
 
-        getExchangeRatesAndUpdateUi(getBaseCode())
-
         setupOnCurrencyCodeClickListener(currencyCodeClickObservable)
     }
 
@@ -32,13 +30,16 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
 
     private fun checkBaseCodeInStorage() {
         if (isBaseCodeInStorage()) {
-            viewState.hideBaseCodeSelectingView()
+            getExchangeRatesAndUpdateUi(getBaseCode())
         } else {
+            viewState.hideRatesScreen()
+            viewState.showBaseCodeSelectingView()
+
             getExchangeRatesAndUpdateUi(BASE_CODE)
         }
     }
 
-    private fun getExchangeRatesAndUpdateUi(baseCode: String?) {
+    private fun getExchangeRatesAndUpdateUi(baseCode: String) {
         addDisposable(
             exchangeRatesRepo.getExchangeRates(baseCode)
                 .subscribeOn(schedulers.io())
@@ -48,7 +49,7 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
                         setupTimeLastUpdateUtc(it.timeLastUpdateUtc)
                         setupTimeNextUpdateUtc(it.timeNextUpdateUtc)
 
-                        saveBaseCode(baseCode)
+                        updateSelectedBaseCode(it.baseCode)
 
                         updateCurrencyCardList(it)
                         updateCurrencyCodeList(it)
@@ -66,7 +67,12 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
                 .observeOn(schedulers.ui())
                 .subscribe(
                     {
+                        saveBaseCode(it.first)
+
                         setupBaseCodeAndUpdateUi(it.first)
+
+                        saveBaseCode(it.first)
+                        viewState.updateBaseCode(getBaseCode())
                     }, {
                         Log.e("TAG", it.toString())
                     }
@@ -76,9 +82,9 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
 
     private fun isBaseCodeInStorage(): Boolean = exchangeRatesRepo.isBaseCodeInStorage()
 
-    private fun saveBaseCode(baseCode: String?) = exchangeRatesRepo.saveBaseCode(baseCode)
+    private fun saveBaseCode(baseCode: String) = exchangeRatesRepo.saveBaseCode(baseCode)
 
-    private fun getBaseCode() = exchangeRatesRepo.getBaseCode()
+    fun getBaseCode() = exchangeRatesRepo.getBaseCode()
 
     private fun setupTimeLastUpdateUtc(timeLastUpdateUtc: String?) {
         viewState.updateTimeLastUpdateUtc(
@@ -104,6 +110,10 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
         )
     }
 
+    private fun updateSelectedBaseCode(baseCode: String?) {
+        viewState.updateSelectedBaseCode(baseCode ?: "")
+    }
+
     private fun updateCurrencyCardList(conversionRates: ExchangeRatesResponse) {
         conversionRates.conversionRates?.toList()?.let {
             viewState.updateCurrencyCardList(it)
@@ -116,16 +126,15 @@ class RatesPresenter : BaseMvpPresenter<RatesView>() {
         }
     }
 
-    private fun setupBaseCodeAndUpdateUi(baseCode: String?) {
-        saveBaseCode(baseCode)
-
+    private fun setupBaseCodeAndUpdateUi(baseCode: String) {
         getExchangeRatesAndUpdateUi(baseCode)
 
-        viewState.hideBaseCodeSelectingView()
-        viewState.updateBaseCode(baseCode)
+        toggleCurrencyCodeList()
+
+        viewState.showRatesScreen()
     }
 
-    fun onSelectButtonClicked() = viewState.toggleCurrencyCodeList()
+    fun toggleCurrencyCodeList() = viewState.toggleCurrencyCodeList()
 
     fun onConvertingButtonClicked() = viewState.openConvertingActivity()
 

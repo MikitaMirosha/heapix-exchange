@@ -1,13 +1,14 @@
 package com.heapix.exchange.ui.converting
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.heapix.exchange.R
 import com.heapix.exchange.base.BaseMvpActivity
 import com.heapix.exchange.model.KeyboardModel
 import com.heapix.exchange.ui.converting.adapter.currencycode.CurrencyCodeAdapter
 import com.heapix.exchange.ui.converting.adapter.keyboard.KeyboardAdapter
+import com.heapix.exchange.ui.rates.RatesActivity
 import com.heapix.exchange.utils.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_converting.*
 import kotlinx.android.synthetic.main.view_currency_code_list.*
@@ -25,7 +26,7 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
 
     override fun onCreateActivity(savedInstanceState: Bundle?) {
         initListeners()
-        setupOnTextChangedListener()
+        setupOnTextChangedListeners()
 
         setupKeyboardAdapter()
         setupCurrencyCodeAdapter()
@@ -43,6 +44,10 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
     }
 
     private fun initListeners() {
+        vFlBackToRatesButton.setOnClickListener {
+            convertingPresenter.onBackToRatesButtonClicked()
+        }
+
         vFlSwitchCurrency.setOnClickListener {
             convertingPresenter.onSwitchCurrencyClicked()
         }
@@ -72,14 +77,38 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
         }
     }
 
-    private fun setupOnTextChangedListener() {
+    private fun setupOnTextChangedListeners() {
+
         vEtPrimaryValue.addTextChangedListener(
             object : SimpleTextWatcher() {
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    convertingPresenter.onTextChanged(s.toString())
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+                    if (vEtPrimaryValue.isFocused) {
+                        convertingPresenter.onPrimaryFieldTextChanged(s.toString())
+                    }
                 }
             }
         )
+
+        vEtSecondaryValue.addTextChangedListener(
+            object : SimpleTextWatcher() {
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+                    if (vEtSecondaryValue.isFocused) {
+                        convertingPresenter.onSecondaryFieldTextChanged(s.toString())
+                    }
+                }
+            }
+        )
+
     }
 
     private fun setupKeyboardAdapter() {
@@ -93,20 +122,23 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
     }
 
     private fun isDotInputValid(value: String?): Boolean {
-        return value?.trim { it <= ' ' }?.isNotEmpty() == true
-                && value.contains(DOT).not()
+        return value?.isNotEmpty() == true && value.contains(DOT).not()
     }
 
-    override fun updateBaseCode(baseCode: String?) {
+    override fun updateBaseCode(baseCode: String) {
         vTvBaseCodeConversion.text = baseCode
     }
 
-    override fun updateTargetCode(targetCode: String?) {
+    override fun updateTargetCode(targetCode: String) {
         vTvTargetCodeConversion.text = targetCode
     }
 
-    override fun updateConversionResult(conversionResult: Double?) {
-        vEtSecondaryValue.setText(conversionResult.toString(), TextView.BufferType.EDITABLE)
+    override fun updatePrimaryValueConversionResult(conversionResult: Double) {
+        vEtPrimaryValue.setText(conversionResult.toString())
+    }
+
+    override fun updateSecondaryValueConversionResult(conversionResult: Double) {
+        vEtSecondaryValue.setText(conversionResult.toString())
     }
 
     override fun updateKeyboard(keyboardModelList: MutableList<KeyboardModel>) =
@@ -138,7 +170,7 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
         }
     }
 
-    override fun setupKeyboardNumber(keyboardNumber: String?) {
+    override fun setupKeyboardNumber(keyboardNumber: String) {
         when {
             vEtPrimaryValue.isFocused -> vEtPrimaryValue.append(keyboardNumber)
             vEtSecondaryValue.isFocused -> vEtSecondaryValue.append(keyboardNumber)
@@ -166,10 +198,24 @@ class ConvertingActivity : BaseMvpActivity(), ConvertingView {
         val primaryValue = vEtPrimaryValue.text.toString()
         val secondaryValue = vEtSecondaryValue.text.toString()
 
-        vEtPrimaryValue.setText(secondaryValue, TextView.BufferType.EDITABLE)
-        vEtSecondaryValue.setText(primaryValue, TextView.BufferType.EDITABLE)
+        when {
+            vEtPrimaryValue.isFocused -> {
+                vEtPrimaryValue.setText(secondaryValue)
+                vEtSecondaryValue.setText(primaryValue)
+            }
+
+            vEtSecondaryValue.isFocused -> {
+                vEtSecondaryValue.setText(primaryValue)
+                vEtPrimaryValue.setText(secondaryValue)
+            }
+        }
     }
 
     override fun toggleCurrencyCodeList() = vCurrencyCodeListBottomSheet.toggle()
+
+    override fun openRatesActivity() {
+        finish()
+        startActivity(Intent(this, RatesActivity::class.java))
+    }
 
 }

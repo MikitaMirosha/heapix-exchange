@@ -2,12 +2,9 @@
 <resources>
 
     <style name="Theme.App.Base" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:editable">false</item>
         <item name="colorAccent">@color/dark_blue</item>
         <item name="colorPrimary">@color/dark_blue</item>
-        <item name="android:splitMotionEvents">false</item>
         <item name="colorPrimaryDark">@color/dark_blue</item>
-        <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:textViewStyle">@style/PtSansText</item>
     </style>
 
@@ -22,9 +19,7 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <style name="DefaultBoldText">
-        <item name="android:maxLines">1</item>
-        <item name="android:ellipsize">end</item>
+    <style name="DefaultBoldText" parent="DefaultText">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/sp_18</item>
         <item name="android:textColor">@color/white</item>
@@ -41,14 +36,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="ConvertingText">"
-        <item name="android:maxLines">1</item>
+    <style name="ConvertingText" parent="DefaultText">
         <item name="android:maxLength">3</item>
-        <item name="android:ellipsize">end</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/sp_18</item>
-        <item name="android:textColor">@color/gray</item>
     </style>
 
     <style name="ConvertingEditText" parent="android:Widget.EditText">
@@ -56,12 +48,11 @@
         <item name="android:gravity">end</item>
         <item name="android:maxLength">12</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:editable">false</item>
         <item name="android:hint">@string/zero</item>
-        <item name="android:cursorVisible">false</item>
         <item name="android:textSize">@dimen/sp_22</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">@color/gray</item>
-        <item name="android:background">@color/transparent</item>
     </style>
 
 </resources>

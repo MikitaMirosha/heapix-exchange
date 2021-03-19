@@ -12,21 +12,19 @@ class PairExchangeRepo(
 ) {
 
     fun getPairExchange(
-        baseCode: String?,
-        targetCode: String?,
-        conversionResult: Double?
+        baseCode: String,
+        targetCode: String
     ): Observable<PairExchangeResponse> {
         return api.getPairExchange(
             baseCode,
-            targetCode,
-            conversionResult
+            targetCode
         )
     }
 
     fun getTargetCode(): String = sharedPreferences.targetCode
 
-    fun saveTargetCode(targetCode: String?) {
-        sharedPreferences.targetCode = targetCode ?: ""
+    fun saveTargetCode(targetCode: String) {
+        sharedPreferences.targetCode = targetCode
     }
 
     fun isTargetCodeInStorage(): Boolean = getTargetCode() != ""

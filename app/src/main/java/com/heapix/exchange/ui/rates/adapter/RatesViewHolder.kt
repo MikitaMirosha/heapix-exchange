@@ -6,24 +6,28 @@ import kotlinx.android.synthetic.main.item_currency_card.*
 import java.math.RoundingMode
 
 class RatesViewHolder(
-    itemView: View
+    itemView: View,
+    val baseCode: String
 ) : BaseViewHolder<Pair<String, Double>>(itemView) {
 
     override fun bind(model: Pair<String, Double>) {
-        setupBaseCode(model)
+        setupBaseCode()
         setupBaseRate(model)
+
         setupCurrencyCode(model)
         setupCurrencyRate(model)
         setupCurrencyCodeConversion(model)
     }
 
     companion object {
-        private const val ONE_CONVENTIONAL_UNIT = 1.0
         private const val SCALE_FOUR = 4
+        private const val ONE_CONVENTIONAL_UNIT = 1.0
+
+        private const val DECIMAL_FORMAT = "0.4f"
     }
 
-    private fun setupBaseCode(conversionRate: Pair<String, Double>) {
-//        vTvBaseCode.text = conversionRate.
+    private fun setupBaseCode() {
+        vTvBaseCode.text = baseCode
     }
 
     private fun setupBaseRate(conversionRate: Pair<String, Double>) {
@@ -40,10 +44,8 @@ class RatesViewHolder(
 
     private fun setupCurrencyRate(conversionRate: Pair<String, Double>) {
         vTvCurrencyRate.text = conversionRate.second
-            .toBigDecimal()
-            .setScale(SCALE_FOUR, RoundingMode.UP)
-            .toDouble()
             .toString()
+            .format(DECIMAL_FORMAT)
     }
 
     private fun setupCurrencyCodeConversion(conversionRate: Pair<String, Double>) {

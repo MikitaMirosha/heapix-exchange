@@ -11,14 +11,14 @@ class ExchangeRatesRepo(
     private val sharedPreferences: SharedPreferences
 ) {
 
-    fun getExchangeRates(baseCode: String?): Observable<ExchangeRatesResponse> {
+    fun getExchangeRates(baseCode: String): Observable<ExchangeRatesResponse> {
         return api.getExchangeRates(baseCode)
     }
 
     fun getBaseCode(): String = sharedPreferences.baseCode
 
-    fun saveBaseCode(baseCode: String?) {
-        sharedPreferences.baseCode = baseCode ?: ""
+    fun saveBaseCode(baseCode: String) {
+        sharedPreferences.baseCode = baseCode
     }
 
     fun isBaseCodeInStorage(): Boolean = getBaseCode() != ""

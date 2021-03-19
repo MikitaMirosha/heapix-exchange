@@ -2,6 +2,7 @@ package com.heapix.exchange.ui.converting
 
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
+import com.heapix.exchange.ConvertingCodeState
 import com.heapix.exchange.MyApp
 import com.heapix.exchange.base.BaseMvpPresenter
 import com.heapix.exchange.model.KeyboardModel
@@ -22,12 +23,9 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
     private val pairExchangeRepo: PairExchangeRepo by MyApp.kodein.instance()
     private val exchangeRatesRepo: ExchangeRatesRepo by MyApp.kodein.instance()
 
-    private lateinit var pairExchangeList: PairExchangeResponse
+    private lateinit var pairExchangeResponse: PairExchangeResponse
 
-    private var isSwitchClicked = false
-
-    private var isBaseCodeClicked = false
-    private var isTargetCodeClicked = false
+    private var isSwitchClicked = true
 
     fun onCreate(
         keyboardButtonClickObservable: Observable<KeyboardModel>,
@@ -44,7 +42,6 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
 
     companion object {
         private const val PRECISION = 6
-        private const val DEFAULT_RATE = 0.0
     }
 
     private fun checkTargetCodeInStorage() {
@@ -80,14 +77,14 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
         )
     }
 
-    private fun getPairExchangeAndUpdateUi(baseCode: String?, targetCode: String?) {
+    private fun getPairExchangeAndUpdateUi(baseCode: String, targetCode: String) {
         addDisposable(
-            pairExchangeRepo.getPairExchange(baseCode, targetCode, DEFAULT_RATE)
+            pairExchangeRepo.getPairExchange(baseCode, targetCode)
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.ui())
                 .subscribe(
                     {
-                        pairExchangeList = it
+                        pairExchangeResponse = it
 
                         updateCodes(it.baseCode, it.targetCode)
                     }, {
@@ -120,7 +117,7 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
                 .subscribe(
                     {
                         when {
-                            isBaseCodeClicked -> {
+                            ConvertingCodeState.BASE_CODE.isClicked -> {
                                 exchangeRatesRepo.saveBaseCode(it.first)
                                 setupBaseCodeAndHideList(it.first)
 
@@ -129,8 +126,7 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
                                     pairExchangeRepo.getTargetCode()
                                 )
                             }
-
-                            isTargetCodeClicked -> {
+                            ConvertingCodeState.TARGET_CODE.isClicked -> {
                                 pairExchangeRepo.saveTargetCode(it.first)
                                 setupTargetCodeAndHideList(it.first)
 
@@ -149,79 +145,91 @@ class ConvertingPresenter : BaseMvpPresenter<ConvertingView>() {
 
     private fun isTargetCodeInStorage(): Boolean = pairExchangeRepo.isTargetCodeInStorage()
 
-    private fun updateCurrencyCodeList(conversionRates: ExchangeRatesResponse) {
-        conversionRates.conversionRates?.toList()?.let {
+    private fun updateCurrencyCodeList(exchangeRatesResponse: ExchangeRatesResponse) {
+        exchangeRatesResponse.conversionRates?.toList()?.let {
             viewState.updateCurrencyCodeList(it)
         }
     }
 
     private fun updateCodes(baseCode: String?, targetCode: String?) {
-        viewState.updateBaseCode(baseCode)
-        viewState.updateTargetCode(targetCode)
+        viewState.updateBaseCode(baseCode ?: "")
+        viewState.updateTargetCode(targetCode ?: "")
     }
 
-    private fun setupBaseCodeAndHideList(baseCode: String?) {
+    private fun setupBaseCodeAndHideList(baseCode: String) {
         viewState.updateBaseCode(baseCode)
         viewState.toggleCurrencyCodeList()
     }
 
-    private fun setupTargetCodeAndHideList(targetCode: String?) {
-        viewState.toggleCurrencyCodeList()
+    private fun setupTargetCodeAndHideList(targetCode: String) {
         viewState.updateTargetCode(targetCode)
+        viewState.toggleCurrencyCodeList()
     }
+
+    fun onBackToRatesButtonClicked() = viewState.openRatesActivity()
 
     fun onSwitchCurrencyClicked() {
-        if (isSwitchClicked.not()) {
-            isSwitchClicked = true
+        isSwitchClicked = isSwitchClicked.not()
 
-            viewState.switchRateValues()
+        getPairExchangeAndUpdateUi(
+            if (isSwitchClicked) exchangeRatesRepo.getBaseCode() else pairExchangeRepo.getTargetCode(),
+            if (isSwitchClicked) pairExchangeRepo.getTargetCode() else exchangeRatesRepo.getBaseCode()
+        )
 
-            getPairExchangeAndUpdateUi(
-                pairExchangeRepo.getTargetCode(),
-                exchangeRatesRepo.getBaseCode()
-            )
-        } else {
-            isSwitchClicked = false
-
-            viewState.switchRateValues()
-
-            getPairExchangeAndUpdateUi(
-                exchangeRatesRepo.getBaseCode(),
-                pairExchangeRepo.getTargetCode()
-            )
-        }
+        viewState.switchRateValues()
     }
 
     fun onBaseCodeClicked() {
-        isBaseCodeClicked = true
-        isTargetCodeClicked = false
+        ConvertingCodeState.BASE_CODE.isClicked = true
+        ConvertingCodeState.TARGET_CODE.isClicked = false
 
         viewState.toggleCurrencyCodeList()
     }
 
     fun onTargetCodeClicked() {
-        isTargetCodeClicked = true
-        isBaseCodeClicked = false
+        ConvertingCodeState.BASE_CODE.isClicked = false
+        ConvertingCodeState.TARGET_CODE.isClicked = true
 
         viewState.toggleCurrencyCodeList()
     }
 
-    fun onTextChanged(text: String?) {
+    fun onPrimaryFieldTextChanged(text: String?) {
         if (text?.length != 0) {
-            viewState.updateConversionResult(countChangedText(text))
+            viewState.updateSecondaryValueConversionResult(countPrimaryValue(text) ?: 0.0)
         } else {
             viewState.clearValues()
         }
     }
 
-    private fun countChangedText(text: String?): Double? {
+    fun onSecondaryFieldTextChanged(text: String?) {
+        if (text?.length != 0) {
+            viewState.updatePrimaryValueConversionResult(countSecondaryValue(text) ?: 0.0)
+        } else {
+            viewState.clearValues()
+        }
+    }
+
+    private fun countPrimaryValue(text: String?): Double? {
 
         return text?.toDouble()?.let {
-            pairExchangeList.conversionRate
+            pairExchangeResponse.conversionRate
                 ?.times(it)
                 ?.toBigDecimal()
                 ?.round(MathContext(PRECISION, RoundingMode.UP))
                 ?.toDouble()
+        }
+    }
+
+    private fun countSecondaryValue(text: String?): Double? {
+
+        return text?.toDouble()?.let {
+            pairExchangeResponse.conversionRate?.let {
+                text.toDouble()
+                    .div(it)
+                    .toBigDecimal()
+                    .round(MathContext(PRECISION, RoundingMode.UP))
+                    ?.toDouble()
+            }
         }
     }
 

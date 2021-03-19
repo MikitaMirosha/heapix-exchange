@@ -3,15 +3,21 @@ package com.heapix.exchange.ui.rates
 import com.heapix.exchange.base.BaseMvpView
 
 interface RatesView : BaseMvpView {
-    fun updateBaseCode(baseCode: String?)
+    fun updateBaseCode(baseCode: String)
+    fun updateSelectedBaseCode(baseCode: String)
 
-    fun updateTimeLastUpdateUtc(timeLastUpdateUtc: String?)
-    fun updateTimeNextUpdateUtc(timeNextUpdateUtc: String?)
+    fun updateTimeLastUpdateUtc(timeLastUpdateUtc: String)
+    fun updateTimeNextUpdateUtc(timeNextUpdateUtc: String)
 
     fun updateCurrencyCardList(currencyCardList: List<Pair<String, Double>>)
     fun updateCurrencyCodeList(currencyCodeList: List<Pair<String, Double>>)
 
     fun toggleCurrencyCodeList()
+
+    fun showRatesScreen()
+    fun hideRatesScreen()
+
+    fun showBaseCodeSelectingView()
     fun hideBaseCodeSelectingView()
 
     fun openConvertingActivity()

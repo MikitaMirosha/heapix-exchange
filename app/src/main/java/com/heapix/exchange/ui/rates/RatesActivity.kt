@@ -9,6 +9,7 @@ import com.heapix.exchange.ui.converting.ConvertingActivity
 import com.heapix.exchange.ui.converting.adapter.currencycode.CurrencyCodeAdapter
 import com.heapix.exchange.ui.rates.adapter.RatesAdapter
 import com.heapix.exchange.utils.extensions.hide
+import com.heapix.exchange.utils.extensions.show
 import kotlinx.android.synthetic.main.activity_rates.*
 import kotlinx.android.synthetic.main.item_currency_card.*
 import kotlinx.android.synthetic.main.view_base_code_selecting.*
@@ -34,8 +35,12 @@ class RatesActivity : BaseMvpActivity(), RatesView {
     }
 
     private fun initListeners() {
-        vTvSelectButton.setOnClickListener {
-            ratesPresenter.onSelectButtonClicked()
+        vTvSelectInitialBaseCodeButton.setOnClickListener {
+            ratesPresenter.toggleCurrencyCodeList()
+        }
+
+        vLlSelectBaseCodeButton.setOnClickListener {
+            ratesPresenter.toggleCurrencyCodeList()
         }
 
         vConvertingButton.setOnClickListener {
@@ -44,7 +49,7 @@ class RatesActivity : BaseMvpActivity(), RatesView {
     }
 
     private fun setupRatesAdapter() {
-        ratesAdapter = RatesAdapter()
+        ratesAdapter = RatesAdapter(ratesPresenter.getBaseCode())
         vRvCurrencyCardList.adapter = ratesAdapter
     }
 
@@ -53,15 +58,19 @@ class RatesActivity : BaseMvpActivity(), RatesView {
         vRvCurrencyCodeList.adapter = currencyCodeAdapter
     }
 
-    override fun updateBaseCode(baseCode: String?) {
+    override fun updateBaseCode(baseCode: String) {
         vTvBaseCode.text = baseCode
     }
 
-    override fun updateTimeLastUpdateUtc(timeLastUpdateUtc: String?) {
+    override fun updateSelectedBaseCode(baseCode: String) {
+        vTvSelectedBaseCode.text = baseCode
+    }
+
+    override fun updateTimeLastUpdateUtc(timeLastUpdateUtc: String) {
         vTvTimeLastUpdateUtc.text = timeLastUpdateUtc
     }
 
-    override fun updateTimeNextUpdateUtc(timeNextUpdateUtc: String?) {
+    override fun updateTimeNextUpdateUtc(timeNextUpdateUtc: String) {
         vTvTimeNextUpdateUtc.text = timeNextUpdateUtc
     }
 
@@ -73,9 +82,17 @@ class RatesActivity : BaseMvpActivity(), RatesView {
 
     override fun toggleCurrencyCodeList() = vCodeListBottomSheet.toggle()
 
+    override fun showRatesScreen() = vClRatesScreen.show()
+
+    override fun hideRatesScreen() = vClRatesScreen.hide()
+
+    override fun showBaseCodeSelectingView() = vLtBaseCodeSelecting.show()
+
     override fun hideBaseCodeSelectingView() = vLtBaseCodeSelecting.hide()
 
-    override fun openConvertingActivity() =
+    override fun openConvertingActivity() {
+        finish()
         startActivity(Intent(this, ConvertingActivity::class.java))
+    }
 
 }

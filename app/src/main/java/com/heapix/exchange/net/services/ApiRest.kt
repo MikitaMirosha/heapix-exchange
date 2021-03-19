@@ -16,10 +16,10 @@ class ApiRest {
     companion object {
 
         private const val BASE_URL: String =
-            "https://v6.exchangerate-api.com/v6/94ddd269f21f0be7b7f9dcef/"
+            "https://v6.exchangerate-api.com/v6/dbfbb5b544af5e6bcdd9ae27/"
         private const val API_KEY: String = "api_key"
 
-        //        private const val API_KEY_VALUE: String = "94ddd269f21f0be7b7f9dcef"
+        //        private const val API_KEY_VALUE: String = "dbfbb5b544af5e6bcdd9ae27"
         private const val TIMEOUT: Long = 10
 
         internal fun getApi(): Retrofit {

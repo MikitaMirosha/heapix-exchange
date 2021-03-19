@@ -7,10 +7,9 @@ import retrofit2.http.Path
 
 interface PairExchangeService {
 
-    @GET("pair/{base_code}/{target_code}/{conversion_result}")
+    @GET("pair/{base_code}/{target_code}")
     fun getPairExchange(
         @Path("base_code") baseCode: String?,
-        @Path("target_code") targetCode: String?,
-        @Path("conversion_result") conversionResult: Double?
+        @Path("target_code") targetCode: String?
     ): Observable<PairExchangeResponse>
 }

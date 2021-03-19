@@ -6,7 +6,7 @@ import com.heapix.exchange.R
 import com.heapix.exchange.base.adapters.BaseListAdapter
 import com.heapix.exchange.base.adapters.BaseViewHolder
 
-class RatesAdapter : BaseListAdapter<Pair<String, Double>>() {
+class RatesAdapter(val baseCode: String) : BaseListAdapter<Pair<String, Double>>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -14,7 +14,8 @@ class RatesAdapter : BaseListAdapter<Pair<String, Double>>() {
     ): BaseViewHolder<Pair<String, Double>> {
         return RatesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_currency_card, parent, false)
+                .inflate(R.layout.item_currency_card, parent, false),
+            baseCode
         )
     }
 

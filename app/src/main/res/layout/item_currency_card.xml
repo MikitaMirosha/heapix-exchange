@@ -27,14 +27,12 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:layout_weight="1" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginVertical="@dimen/dp_14"
-            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -46,55 +44,63 @@
                 android:layout_marginEnd="@dimen/dp_14"
                 tools:text="0.999$" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_marginEnd="@dimen/dp_14"
-                android:background="@color/white" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginEnd="@dimen/dp_14"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    style="@style/DefaultText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/one" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:background="@color/white" />
 
-                <TextView
-                    android:id="@+id/vTvCurrencyCodeConversion"
-                    style="@style/DefaultText"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_6"
-                    tools:text="USD" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:orientation="horizontal">
 
-                <TextView
-                    style="@style/DefaultText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp_6"
-                    android:text="@string/equal" />
+                    <TextView
+                        style="@style/DefaultText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/one" />
 
-                <TextView
-                    android:id="@+id/vTvBaseRate"
-                    style="@style/DefaultText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="2.6" />
+                    <TextView
+                        android:id="@+id/vTvCurrencyCodeConversion"
+                        style="@style/DefaultText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        tools:text="USD" />
 
-                <TextView
-                    android:id="@+id/vTvBaseCode"
-                    style="@style/DefaultText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_6"
-                    tools:text="BYN" />
+                    <TextView
+                        style="@style/DefaultText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dp_6"
+                        android:text="@string/equal" />
+
+                    <TextView
+                        android:id="@+id/vTvBaseRate"
+                        style="@style/DefaultText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="2.6677" />
+
+                    <TextView
+                        android:id="@+id/vTvBaseCode"
+                        style="@style/DefaultText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        tools:text="BYN" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
