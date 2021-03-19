@@ -1,3 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Exchange</string>
+
+    <string name="converter">Converter</string>
+    <string name="next_update">Next update:</string>
+    <string name="last_updated">Last updated:</string>
+
+    <string name="dot">.</string>
+    <string name="one">1</string>
+    <string name="zero">0</string>
+    <string name="equal">=</string>
+
+    <string name="currency_code">Currency code</string>
+
+    <string name="hello">Hello!</string>
+    <string name="select">Select</string>
+    <string name="please_select_base_code">Please, select base code</string>
+
+    <string name="error_during_api_call">error during api call</string>
+
+    <string name="currency">Currency</string>
 </resources>
