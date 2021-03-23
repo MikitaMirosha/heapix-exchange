@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_blue"
+    android:overScrollMode="never">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/DefaultBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/dp_46"
+                android:text="@string/hello"
+                android:textSize="@dimen/sp_32" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="@dimen/dp_46"
+                android:src="@drawable/ic_exchange_initial_logo" />
+
+            <TextView
+                style="@style/DefaultBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_46"
+                android:layout_marginBottom="@dimen/dp_28"
+                android:text="@string/please_select_base_code" />
+
+            <TextView
+                android:id="@+id/vTvSelectInitialBaseCodeButton"
+                style="@style/DefaultBoldText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp_46"
+                android:background="@drawable/bg_rec_rounded_16"
+                android:elevation="@dimen/dp_2"
+                android:padding="@dimen/dp_12"
+                android:text="@string/select"
+                android:textSize="@dimen/sp_16" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
